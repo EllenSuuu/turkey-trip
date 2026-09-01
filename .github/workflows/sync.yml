@@ -1,0 +1,26 @@
+name: Sync from CloudStudio
+on:
+  schedule:
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Fetch and sync
+        run: |
+          curl -sL https://d72ef7c001e44ce6834d4bdbb1f8fe3b.app.workbuddy.link -o index.html.new
+          if ! cmp -s index.html index.html.new; then
+            mv index.html.new index.html
+            git config user.name "sync-bot"
+            git config user.email "sync@users.noreply.github.com"
+            git add index.html
+            git commit -m "auto-sync from CloudStudio"
+            git push
+          else
+            echo "no change, skip"
+          fi
