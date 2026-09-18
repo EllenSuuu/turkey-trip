@@ -434,10 +434,11 @@
 
   /* Cost input inside card */
   .poi-cost {
-    display:flex; flex-direction:column; gap:6px;
+    display:none; flex-direction:column; gap:6px;
     margin-top:10px; padding-top:10px;
     border-top:1px dashed var(--c-border);
   }
+  .poi-card.expanded .poi-cost { display:flex; }
   .cost-row { display:flex; align-items:center; gap:8px; }
   .cost-ico { font-size:14px; flex:none; }
   .cost-label { font-size:12px; font-weight:600; color:var(--c-text2); white-space:nowrap; flex:none; width:2.2em; }
@@ -497,22 +498,22 @@
   .day-summary-val span { color:inherit; }
 
   /* ===== POI 内嵌详情卡片（第一次点击行程卡片展开） ===== */
-  .poi-detail { display:none; margin-top:11px; border-top:1px dashed var(--c-border); padding-top:11px; animation: fadeIn .3s ease; }
+  .poi-detail { display:none; position:relative; margin-top:11px; border-top:1px dashed var(--c-border); padding-top:11px; animation: fadeIn .3s ease; }
   .poi-card.expanded .poi-detail { display:block; }
   .poi-detail-inner { display:flex; gap:12px; align-items:flex-start; }
-  .poi-detail-img { width:150px; height:104px; object-fit:cover; border-radius:10px; flex:none; cursor:pointer; box-shadow: var(--shadow-sm); }
+  .poi-detail-close { position:absolute; top:4px; right:4px; width:30px; height:30px; border-radius:50%; border:none; background:rgba(0,0,0,.06); color:var(--c-text2); font-size:15px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s; }
+  .poi-detail-close:hover { background:rgba(0,0,0,.14); color:var(--c-text); }
   .poi-detail-text { flex:1; min-width:0; }
   .poi-detail-desc { font-size:12.5px; color:var(--c-text2); line-height:1.65; margin-top:8px;
     display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
   @media (max-width: 960px) {
     .poi-detail-inner { flex-direction:column; }
-    .poi-detail-img { width:100%; height:170px; }
   }
   .poi-hint { font-size:11px; color:var(--c-text3); margin-top:9px; display:flex; align-items:center; gap:4px; }
   .poi-card.expanded .poi-hint { color:#1a73e8; }
 
-  /* 无景点介绍的环节（交通值机 / 航班 / 行李打包）：去掉可点击暗示 */
-  .poi-card.no-intro { cursor:default; }
+  /* 无景点介绍的环节（交通值机 / 航班 / 行李打包）：可点击展开费用记录 */
+  .poi-card.no-intro { cursor:pointer; }
   .poi-card.no-intro:hover { transform:none; box-shadow: var(--shadow-sm); border-color: var(--c-border); }
   .poi-card.no-intro:hover { background: var(--c-card); }
 
@@ -543,6 +544,8 @@
     transition:opacity .2s, transform .2s;
   }
   .ctrip-link:hover { opacity:0.9; transform:translateY(-1px); }
+  .ctrip-link.xhs-link { background:linear-gradient(135deg, #ff2e4d, #ff5c78); }
+  .ctrip-link.xhs-link:hover { background:linear-gradient(135deg, #e01f3c, #ff2e4d); }
 
   /* Quick info rows in popup (ticket / hours) */
   .popup-quick { display:flex; flex-direction:column; gap:6px; margin:8px 0 2px; }
@@ -717,22 +720,16 @@
 <!-- Flight Info Bar -->
 <div class="flight-bar">
   <div class="flight-group">
-    <div class="flight-group-label">🌍 国际航班</div>
     <div class="flight-items">
       <span class="flight-item">✈️ 9.29 广州→阿拉木图 <b>KC8188</b> 19:40</span>
       <span class="flight-item">✈️ 9.30 阿拉木图T2→伊斯坦布尔 <b>KC911</b> 16:20-20:25</span>
+      <span class="flight-item">🛩️ 10.2 萨比哈→开塞利(卡帕) <b>PC2736 · SAW→ASR</b> 14:40</span>
+      <span class="flight-item">🛩️ 10.4 卡帕→萨比哈 <b>PC2733 · ASR→SAW</b> 09:55</span>
+      <span class="flight-item">🛩️ 10.4 萨比哈→安塔利亚 <b>VF3040 · SAW→AYT</b> 15:40</span>
+      <span class="flight-item">🛩️ 10.6 安塔利亚→萨比哈 <b>VF3041 · AYT→SAW</b> 18:00</span>
       <span class="flight-item">✈️ 10.7 伊斯坦布尔→曼谷 <b>TK052</b> 22:15</span>
       <span class="flight-item">✈️ 10.8 曼谷→香港 <b>UO701</b> 16:15</span>
       <span class="flight-item">🚄 10.8 香港→广州高铁 <b>班次待定</b></span>
-    </div>
-  </div>
-  <div class="flight-group">
-    <div class="flight-group-label">🇹🇷 土耳其国内段</div>
-    <div class="flight-items">
-      <span class="flight-item">🛩️ 10.2 萨比哈→开塞利(卡帕) <b>PC2736 · SAW→ASR</b> 14:40</span>
-      <span class="flight-item">🛩️ 10.4 卡帕→萨比哈 <b>PC2733 · ASR→SAW</b> 09:55</span>
-      <span class="flight-item">🛩️ 10.4 萨比哈→安塔利亚 <b>待补 · SAW→AYT</b></span>
-      <span class="flight-item">🛩️ 10.6 安塔利亚→伊斯坦布尔 <b>AYT→IST</b></span>
     </div>
   </div>
 </div>
@@ -783,10 +780,12 @@ const days = [
     ]
   },  {
     date: '9月30日 · 周三', tab: '阿拉木图→伊斯坦布尔',
-    title: '接机日 · 阿拉木图 → 伊斯坦布尔',
-    desc: '经阿拉木图转机，傍晚飞抵伊斯坦布尔，专车接机入住酒店，养精蓄锐迎接地中海与安纳托利亚的旅程。',
+    title: '阿拉木图半日 · 傍晚飞伊斯坦布尔',
+    desc: '上午在阿拉木图游览升天大教堂与绿色市场，午后转机飞抵伊斯坦布尔，专车接机入住酒店，养精蓄锐迎接地中海与安纳托利亚的旅程。',
     center: [41.1, 28.9], zoom: 7,
     pois: [
+      { time:'10:00', name:'升天大教堂 & 绿色市场（可选）', desc:'阿拉木图潘菲洛夫28勇士公园内的升天大教堂（Zenkov Cathedral），世界第二高的全木结构东正教教堂，1907年建成、未用一根铁钉，糖果色外墙配鎏金洋葱顶；旁边绿色市场（Zelyony Bazaar）可一并闲逛，购买干果与奶制品。', cat:'culture', lat:43.0613, lng:76.9570, meta:'🆓 免费 · 约90分钟', wiki:'Zenkov Cathedral' },
+      { time:'12:00', name:'午餐 · Darejani 餐厅（推荐）', desc:'阿拉木图本地人气餐厅，主打中亚风味与高加索/格鲁吉亚菜系，环境温馨，适合上午行程后的午餐小憩。点开可查看小红书笔记推荐。', cat:'food', lat:43.0567, lng:76.9280, meta:'🍽️ 小红书推荐 · 点击查看', xhs:'https://www.xiaohongshu.com/explore/69ad43e9000000001b01ee24?app_platform=ios&app_version=9.46&share_from_user_hidden=true&xsec_source=app_share&type=normal&xsec_token=CBPfbyA0hUdiDBeluqWvJLxW36BePIE2SFjrwvah2m2b8=&author_share=1&xhsshare=WeixinSession&shareRedId=Nz40MDc6SEs5OzsyQjw1OkdISj46N0o8&apptime=1789666420&share_id=865c95d9bba54a67a8d053c8eb093e52&track_code=486YzvXHuNe&wechatWid=72a1cd3480a295eed58154628bd59118&wechatOrigin=menu' },
       { time:'16:20', name:'航班 KC911 阿拉木图T2 → 伊斯坦布尔', desc:'阿斯塔纳航空执飞，飞行约 5.5 小时，跨越里海抵达欧亚大陆交汇之城。', cat:'transport', lat:41.2753, lng:28.7519, meta:'🛫 阿斯塔纳航空 · 约5.5h · 16:20-20:25', wiki:'Air Astana' },
       { time:'20:25', name:'抵达伊斯坦布尔机场 (IST)', desc:'落地土耳其最大机场，办理入境与取行李，接机专车已在等候。', cat:'transport', lat:41.2753, lng:28.7519, meta:'🛬 当地时间20:25', wiki:'Istanbul Airport' },
       { time:'21:30', name:'专车接机 · 入住希尔顿欢朋酒店', desc:'约 40 分钟车程抵达宰廷布尔努区，入住 Hampton by Hilton Istanbul Zeytinburnu。酒店位于欧洲一侧，紧邻地铁 M1A 线与 Marmara Forum 购物中心，前往老城景点与机场都很方便。连住 2 晚（9.30、10.1）。', cat:'stay', hotel:true, hotelName:'Hampton by Hilton Istanbul Zeytinburnu', lat:41.0055, lng:28.9010, meta:'🏨 希尔顿欢朋 Zeytinburnu · 连住2晚', wiki:'Istanbul' }
@@ -803,6 +802,10 @@ const days = [
       { time:'12:00', name:'地下水宫（Basilica Cistern）', desc:'建于公元6世纪的拜占庭地下蓄水宫，336根石柱撑起幽深穹顶，倒影中可见著名的哭泣柱与雕有蛇发女妖的美杜莎头像石柱，氛围神秘清凉。', cat:'culture', lat:41.0088, lng:28.9779, meta:'🎫 门票自费 · 约45分钟', wiki:'Basilica Cistern' },
       { time:'13:00', name:'老城午餐（自理）', desc:'在苏丹艾哈迈德区找一家传统餐厅，品尝土耳其烤肉、Menemen 或水平早餐，补充体力。', cat:'food', lat:41.0060, lng:28.9770, meta:'🍽️ 自理 · 人均约150元', wiki:'Turkish cuisine' },
       { time:'14:00', name:'蓝色清真寺（入内简单参观）', desc:'因内部蓝色瓷砖得名，六座宣礼塔是奥斯曼建筑巅峰。入内简单参观，欣赏伊兹尼克蓝砖与巨大中央圆顶，女性需包头巾、入内脱鞋。', cat:'culture', lat:41.0054, lng:28.9768, meta:'🆓 免费 · 约30分钟', wiki:'Sultan Ahmed Mosque' },
+      { time:'14:30', name:'蓝色清真寺附近餐厅推荐', desc:'蓝色清真寺周边两家高人气露台餐厅，点开分别查看小红书笔记推荐与点评。', cat:'food', lat:41.0054, lng:28.9768, meta:'🍽️ 小红书推荐 · 2家 · 点击查看', recs:[
+        { name:'ALPEK TERAS RESTAURANT', xhs:'https://www.xiaohongshu.com/explore/6aabe58300000000250356b3?app_platform=ios&app_version=9.46&share_from_user_hidden=true&xsec_source=app_share&type=normal&xsec_token=CB2ly-j9qTDQIf0sl3yKyXZTPlIEHedUnh4Y118A3LUUo=&author_share=1&xhsshare=WeixinSession&shareRedId=Nz40MDc6SEs5OzsyQjw1OkdISj46N0o8&apptime=1789666740&share_id=411656b3b4164cbcbad59dcfb18ee607&track_code=67QOYlIcgQB&wechatWid=72a1cd3480a295eed58154628bd59118&wechatOrigin=menu' },
+        { name:'By Kinyas terrace restaurant', xhs:'https://www.xiaohongshu.com/explore/6a2fda39000000001101c967?app_platform=ios&app_version=9.46&share_from_user_hidden=true&xsec_source=app_share&type=normal&xsec_token=CBnNfne6gDnZAv4q1UmeEqTLFh22H-FPRrqwiwqZTFpyI=&author_share=1&xhsshare=WeixinSession&shareRedId=Nz40MDc6SEs5OzsyQjw1OkdISj46N0o8&apptime=1789666768&share_id=de0b2194488b4251ace8817d33b5a667&track_code=gDtu7MdySJ&wechatWid=72a1cd3480a295eed58154628bd59118&wechatOrigin=menu' }
+      ] },
       { time:'14:45', name:'埃及方尖碑', desc:'原竖立于埃及卡尔纳克神庙，公元390年运至君士坦丁堡。碑身四面刻象形文字，底座浮雕描绘狄奥多西一世的赛马车队场景，矗立于苏丹艾哈迈德广场。', cat:'culture', lat:41.0059, lng:28.9754, meta:'🆓 免费 · 约20分钟', wiki:'Obelisk of Theodosius' },
       { time:'15:30', name:'博斯普鲁斯游船', desc:'搭乘游船穿越欧亚分界线，纵览两岸宫殿、清真寺与别墅，在离开老城前享受最惬意的水上告别仪式。', cat:'nature', lat:41.0210, lng:29.0050, meta:'🎫 含船票 · 约90分钟', wiki:'Bosphorus' },
       { time:'18:00', name:'入住希尔顿欢朋酒店（第2晚）', desc:'回到宰廷布尔努的希尔顿欢朋酒店休息，连续第二晚入住，养精蓄锐迎接次日前往卡帕多奇亚的国内航班。', cat:'stay', lat:41.0055, lng:28.9010, meta:'🏨 希尔顿欢朋 · 连住第2晚', wiki:'Istanbul', hotel:true, hotelName:'Hampton by Hilton Istanbul Zeytinburnu' }
@@ -840,17 +843,17 @@ const days = [
     ]
   }, {
     date: '10月4日 · 周日', tab: '卡帕→安塔利亚',
-    title: '卡帕送机 · 安塔利亚包车游',
-    desc: '清晨在卡塔帕石屋平台观热气球，随后飞往伊斯坦布尔萨比哈机场，再乘航班赴安塔利亚，7座包车游览阿斯班多斯古剧场与佩尔盖古城，当晚入住诺克斯套房。',
+    title: '卡帕送机 · 飞抵安塔利亚',
+    desc: '清晨在卡塔帕石屋平台观热气球，经伊斯坦布尔萨比哈机场中转，搭乘 AJet VF3040 飞抵安塔利亚，当晚入住诺克斯套房，开启地中海假期。',
     center: [39.0, 32.0], zoom: 5,
     pois: [
       { time:'06:30', name:'酒店早餐 & 平台观热气球', desc:'在卡塔帕石屋露台享用清晨早餐，远眺精灵烟囱上空成片热气球缓缓升起的名场面。', cat:'food', lat:38.6420, lng:34.8300, meta:'🍽️ 含餐 · 观热气球', wiki:'Göreme' },
       { time:'09:55', name:'航班 PC2733 埃尔基莱特 → 萨比哈', desc:'飞马航空（Pegasus）执飞，09:55-11:20 从开塞利埃尔基莱特机场（ASR）飞抵伊斯坦布尔萨比哈·格克琴机场（SAW）。', cat:'transport', lat:38.7704, lng:35.4972, meta:'🛫 飞马航空 PC2733 · ASR→SAW · 09:55-11:20', wiki:'Kayseri Erkilet Airport' },
-      { time:'11:20', name:'萨比哈机场 → 安塔利亚航班', desc:'落地伊斯坦布尔亚洲侧萨比哈机场，随即搭乘航班飞往安塔利亚（航班号待补），落地后当地司机会合。', cat:'transport', lat:40.8984, lng:29.3092, meta:'✈️ 萨比哈→安塔利亚 · 航班待补', wiki:'Antalya' },
-      { time:'14:00', name:'安塔利亚专车（7座车 · 1750元）', desc:'当地司机 7 座车包车：含司机服务费、车辆使用费、油费、过路费、停车费；不含景点门票等其他未提及费用。超时费 160元/半小时；20:00-07:00 属夜间服务，夜间服务费 200元/半小时。行程：诺克斯套房 → 阿斯班多斯古剧场 → 佩尔盖古城 → 返回诺克斯套房。', cat:'transport', lat:36.8969, lng:30.7133, meta:'🚐 7座车 1750元', wiki:'Antalya' },
-      { time:'15:00', name:'阿斯班多斯古剧场', desc:'保存最完好的罗马剧场之一，建于公元2世纪，可容纳约1.5万人，至今仍在举办音乐节。半圆看台声学极佳，舞台后台通道与皇帝包厢保存完整。', cat:'culture', lat:36.9406, lng:31.1722, meta:'🎫 含门票 · 约1小时', wiki:'Aspendos' },
-      { time:'16:30', name:'佩尔盖古城（Perge）', desc:'潘菲利亚地区重要古城，距安塔利亚约15公里。遗址保存完好，拥有罗马城门、柱廊大道、浴场、剧场与体育场。使徒保罗曾在此传教。', cat:'culture', lat:36.9556, lng:30.8686, meta:'🎫 含门票 · 约1小时', wiki:'Perge' },
-      { time:'18:00', name:'返回诺克斯套房休息', desc:'包车返回诺克斯套房（Nox Suite），结束当日安塔利亚段的游览，今晚好好休息，明日继续地中海假日。', cat:'stay', lat:36.8841, lng:30.7045, meta:'🏨 入住诺克斯套房 Nox Suite', wiki:'Antalya' }
+      { time:'11:20', name:'萨比哈机场中转候机', desc:'抵达伊斯坦布尔萨比哈·格克琴国际机场（SAW），转乘 15:40 的 AJet VF3040 飞往安塔利亚，中转候机约 4 小时，可在机场用餐与休息。', cat:'transport', lat:40.8984, lng:29.3092, meta:'🔄 SAW 中转 · 候机约 4 小时', wiki:'Istanbul Sabiha Gokcen Airport' },
+      { time:'15:40', name:'航班 VF3040 萨比哈 → 安塔利亚', desc:'AJet 航空 VF3040 执飞，15:40 从伊斯坦布尔萨比哈·格克琴国际机场（SAW）起飞，17:05 抵达安塔利亚机场 D（AYT），航程约 1 小时 25 分。', cat:'transport', lat:40.8984, lng:29.3092, meta:'🛫 AJet VF3040 · SAW→AYT · 15:40-17:05', wiki:'Antalya Airport' },
+      { time:'17:05', name:'抵达安塔利亚机场 D · 会合接机', desc:'落地安塔利亚机场 D 航站楼（AYT），取行李出关后与接机司机会合，前往市区酒店。', cat:'transport', lat:36.9014, lng:30.7926, meta:'🛬 抵达 AYT 机场 D · 会合接机', wiki:'Antalya Airport' },
+      { time:'18:15', name:'返回诺克斯套房休息', desc:'抵达诺克斯套房（Nox Suite）办理入住，放下行李稍作休整。10.4 / 10.5 连续两晚入住，明日开启安塔利亚全日探索。', cat:'stay', lat:36.8841, lng:30.7045, meta:'🏨 入住诺克斯套房 Nox Suite', wiki:'Antalya' },
+      { time:'19:30', name:'老城晚餐（Kaleiçi）', desc:'步行前往 Kaleiçi 老城觅食，石板巷弄里遍布餐厅与酒吧，推荐烤羊肉串或瓦罐牛肉配 Ayran 酸奶，饭后沿老城散步消食。', cat:'food', lat:36.8840, lng:30.7055, meta:'🍽️ 自理 · 人均约150元', wiki:'Turkish cuisine' }
     ]
   },
   {
@@ -870,20 +873,23 @@ const days = [
     ]
   },
   {
-    date: '10月6日 · 周二', tab: '安塔利亚',
-    title: '安塔利亚 · 悠闲收尾日',
-    desc: '在安塔利亚的最后一天，从容享受地中海慢生活，为返程做最后的准备。',
+    date: '10月6日 · 周二', tab: '安塔利亚→伊斯坦布尔',
+    title: '古迹包车 · 晚班机返伊斯坦布尔',
+    desc: '退房后乘 7 座车包车游览佩尔盖古城与阿斯班多斯古剧场，傍晚送至安塔利亚机场，搭乘 AJet VF3041（18:00-19:25）飞返伊斯坦布尔萨比哈机场，入住塔克西姆广场 MOXY 酒店（Moxy Istanbul Taksim）。',
     center: [36.8969, 30.7133], zoom: 13,
     pois: [
-      { time:'09:00', name:'酒店早餐 & 退房准备', desc:'在诺克斯套房享用最后一顿地中海早餐，整理行李，确认晚间航班信息。', cat:'food', lat:36.8841, lng:30.7045, meta:'🍽️ 含餐', wiki:'Antalya' },
-      { time:'10:00', name:'安塔利亚自由活动', desc:'上午自由安排：可以去 Konyaaltı 海滩晒太阳、逛周末市集买手信、或在老城咖啡馆发呆喝红茶。', cat:'shopping', lat:36.8690, lng:30.6850, meta:'🛍️ 自由安排 · 记得退税', wiki:'Antalya Beach' },
-      { time:'12:30', name:'午餐 @ 老城', desc:'在 Kaleiči 找一家喜欢的餐厅吃最后一顿土耳其午餐，推荐烤羊肉串配 Şalgam（紫萝卜汁）。', cat:'food', lat:36.8840, lng:30.7055, meta:'🍽️ 自理 · 人均约150元', wiki:'Turkish cuisine' },
-      { time:'14:30', name:'前往安塔利亚机场', desc:'提前前往安塔利亚机场（AYT），办理值机手续，搭乘下午航班返回伊斯坦布尔转机回国。', cat:'transport', lat:36.8969, lng:30.7133, meta:'✈️ 前往 AYT 机场', wiki:'Antalya Airport' },
-      { time:'16:00', name:'航班 安塔利亚 → 伊斯坦布尔', desc:'土耳其国内航班 AYT → IST，飞行约 1.5 小时，从地中海畔返回欧亚交汇之都。', cat:'transport', lat:41.2753, lng:28.7519, meta:'🛫 国内航班 · 约1.5h · AYT→IST', wiki:'Istanbul Airport' },
-      { time:'18:00', name:'抵达伊斯坦布尔 · 入住酒店', desc:'落地后前往酒店办理入住（酒店待定，可选与前期一致的希尔顿欢朋或机场附近酒店，建议确认）。今晚在伊斯坦布尔休整，明晚搭乘国际航班回国。', cat:'stay', lat:41.0055, lng:28.9010, meta:'🏨 伊斯坦布尔酒店 · 待确认', wiki:'Istanbul' },
-      { time:'19:30', name:'独立大街漫步', desc:'伊斯坦布尔的「香榭丽舍」，19世纪欧式建筑、书店、咖啡馆、街头艺人与红色复古电车交织成独特的都市风情。出发前补上新城夜景。', cat:'shopping', lat:41.0340, lng:28.9780, meta:'🆓 免费 · 约1小时', wiki:'İstiklal Avenue' },
-      { time:'20:30', name:'塔克西姆广场', desc:'伊斯坦布尔的心脏地带，共和国纪念碑矗立中央。周边餐厅酒吧林立，是感受当地市民生活的最佳场所。', cat:'attraction', lat:41.0369, lng:28.9850, meta:'🆓 免费 · 约30分钟', wiki:'Taksim Square' },
-      { time:'21:00', name:'晚餐 @ Zübeyir Ocakbaşı', desc:'独立大街上人气爆棚的传统烤肉店，炭火烤羊肉串与茄泥酱(Mutabbal)是必点，搭配土耳其面包与Ayran酸奶。作为此行最后一顿土耳其晚餐。', cat:'food', lat:41.0345, lng:28.9775, meta:'🍽️ 自理 · 人均约150元', wiki:'Turkish cuisine' }
+      { time:'08:30', name:'酒店早餐 & 退房', desc:'在诺克斯套房享用最后一顿地中海早餐，整理行李后办理退房，行李可随车携带。', cat:'food', lat:36.8841, lng:30.7045, meta:'🍽️ 含餐 · 退房', wiki:'Antalya' },
+      { time:'10:00', name:'安塔利亚专车（7座车 · 1750元）', desc:'当地司机 7 座车包车：含司机服务费、车辆使用费、油费、过路费、停车费；不含景点门票等其他未提及费用。超时费 160元/半小时；20:00-07:00 属夜间服务，夜间服务费 200元/半小时。产品行程：安塔利亚酒店 → 阿斯班多斯古剧场 → 佩尔盖古城 → AYT机场，全程为送机路线，白天游览时间充裕。', cat:'transport', lat:36.8969, lng:30.7133, meta:'🚐 7座车 1750元 · 送机路线', wiki:'Antalya' },
+      { time:'10:30', name:'佩尔盖古城（Perge）', desc:'潘菲利亚地区重要古城，距安塔利亚约 15 公里。遗址保存完好，拥有罗马城门、柱廊大道、浴场、剧场与体育场，使徒保罗曾在此传教。', cat:'culture', lat:36.9556, lng:30.8686, meta:'🎫 门票自理 · 约1.5小时', wiki:'Perge' },
+      { time:'12:30', name:'午餐 @ 途中乡镇', desc:'在佩尔盖与阿斯班多斯之间的乡镇餐厅用午餐，推荐烤肉拼盘配新鲜沙拉，为下午的剧场游览补充体力。', cat:'food', lat:36.9389, lng:31.1722, meta:'🍽️ 自理 · 人均约150元', wiki:'Turkish cuisine' },
+      { time:'14:00', name:'阿斯班多斯古剧场', desc:'保存最完好的罗马剧场之一，建于公元 2 世纪，可容纳约 1.5 万人，至今仍在举办音乐节。半圆看台声学极佳，舞台后台通道与皇帝包厢保存完整。', cat:'culture', lat:36.9406, lng:31.1722, meta:'🎫 门票自理 · 约1.5小时', wiki:'Aspendos' },
+      { time:'16:15', name:'前往安塔利亚机场（AYT）', desc:'游览结束后由包车送往安塔利亚机场 D 航站楼，提前约 2 小时办理值机与托运，核对 AJet VF3041 的行李额。', cat:'transport', lat:36.8969, lng:30.7133, meta:'✈️ 前往 AYT 机场 · 提前2小时', wiki:'Antalya Airport' },
+      { time:'18:00', name:'航班 VF3041 安塔利亚 → 萨比哈', desc:'AJet 航空 VF3041 执飞，18:00 从安塔利亚机场 D（AYT）起飞，19:25 抵达伊斯坦布尔萨比哈·格克琴国际机场（SAW，亚洲侧），航程约 1 小时 25 分。', cat:'transport', lat:36.9014, lng:30.7926, meta:'🛫 AJet VF3041 · AYT→SAW · 18:00-19:25', wiki:'Antalya Airport' },
+      { time:'19:25', name:'抵达萨比哈·格克琴国际机场', desc:'落地萨比哈·格克琴国际机场（SAW）并提取行李，随后跨博斯普鲁斯海峡前往欧洲侧市区酒店，车程约 1 小时。', cat:'transport', lat:40.8984, lng:29.3092, meta:'🛬 抵达 SAW · 距市区约1小时', wiki:'Istanbul Sabiha Gokcen Airport' },
+      { time:'21:00', name:'入住 MOXY 酒店（塔克西姆广场）', desc:'入住塔克西姆广场 MOXY 酒店（Moxy Istanbul Taksim），万豪旗下年轻潮流品牌，紧邻塔克西姆广场与独立大街，出门即达今晚的晚餐与夜游动线。10月6日入住、共 1 晚，10月7日离店。', cat:'stay', hotel:true, hotelName:'伊斯坦布尔塔克西姆广场MOXY酒店', lat:41.0369, lng:28.9850, meta:'🏨 MOXY 塔克西姆 · 10.6入住 / 10.7离店', wiki:'Taksim Square' },
+      { time:'21:30', name:'晚餐 @ Zübeyir Ocakbaşı', desc:'独立大街上人气爆棚的传统烤肉店，炭火烤羊肉串与茄泥酱(Mutabbal)是必点。19:25 才落地萨比哈、跨海峡进城约 1 小时，今夜以就近用餐、轻松休整为主。', cat:'food', lat:41.0345, lng:28.9775, meta:'🍽️ 自理 · 人均约150元', wiki:'Turkish cuisine' },
+      { time:'22:30', name:'独立大街漫步', desc:'伊斯坦布尔的「香榭丽舍」，19世纪欧式建筑、书店、咖啡馆、街头艺人与红色复古电车交织成独特的都市风情。餐后散步消食，感受新城夜色；若体力不支可顺延至 10.7 上午。', cat:'shopping', lat:41.0340, lng:28.9780, meta:'🆓 免费 · 视体力可选', wiki:'İstiklal Avenue' },
+      { time:'23:15', name:'塔克西姆广场', desc:'伊斯坦布尔的心脏地带，共和国纪念碑矗立中央，广场夜间依然热闹。作为当日收尾点，之后返回酒店休息。', cat:'attraction', lat:41.0369, lng:28.9850, meta:'🆓 免费 · 约30分钟', wiki:'Taksim Square' }
     ]
   },
   {
@@ -894,7 +900,7 @@ const days = [
     pois: [
       { time:'09:00', name:'伊斯坦布尔半日游 / 休息', desc:'昨晚已从安塔利亚飞回并入住。上午可安排：补漏景点、大巴扎采购手信（土耳其软糖、开心果、藏红花、蓝眼睛挂饰），记得索要退税单。', cat:'shopping', lat:41.0107, lng:28.9684, meta:'🛍️ 自由安排 · 记得退税', wiki:'Grand Bazaar, Istanbul' },
       { time:'12:30', name:'告别午餐', desc:'在老城吃最后一顿土耳其午餐，推荐烤鱼三明治（Balık Ekmek）或瓦罐牛肉（Testi Kebab），配一杯土耳其红茶。', cat:'food', lat:41.0075, lng:28.9785, meta:'🍽️ 自理 · 人均约150元', wiki:'Turkish cuisine' },
-      { time:'14:00', name:'回酒店整理行李 & 休息', desc:'返回酒店整理行李、称重打包，确认护照 / 退税单 / 登机牌齐全，为长途夜航养精蓄锐。', cat:'stay', lat:41.0055, lng:28.9010, meta:'🧳 整理行李 · 检查退税单', wiki:'Istanbul' },
+      { time:'14:00', name:'回 MOXY 酒店取行李 & 整理', desc:'上午退房后可将行李寄存在酒店礼宾部；下午返回取行李、称重打包，确认护照 / 退税单 / 登机牌齐全，为长途夜航养精蓄锐。酒店紧邻塔克西姆广场，取件后可直接前往机场。', cat:'stay', lat:41.0369, lng:28.9850, meta:'🧳 MOXY 取行李 · 检查退税单', wiki:'Taksim Square' },
       { time:'18:30', name:'前往伊斯坦布尔机场', desc:'国际航班建议提前 3.5 小时到机场，办理值机、退税盖章与出境手续（注意：退税商品需先过海关盖章，不要提前托运）。', cat:'transport', lat:41.2753, lng:28.7519, meta:'✈️ TK052 提前3.5小时', wiki:'Istanbul Airport' },
       { time:'22:15', name:'航班 TK052 伊斯坦布尔 → 曼谷', desc:'土耳其航空执飞，飞行约 9.5 小时，机上过夜，次日中午抵达曼谷。', cat:'transport', lat:41.2753, lng:28.7519, meta:'🛫 土耳其航空 · 约9.5h · 机上过夜', wiki:'Turkish Airlines' }
     ]
@@ -921,7 +927,7 @@ const days = [
 const dayWeather = [
   [{ c: '广州', hi: 31, lo: 24 }],                                            // 9.28 行前准备（出发地）
   [{ c: '阿拉木图', hi: 19, lo: 8 }],                                         // 9.29 广州→阿拉木图
-  [{ c: '伊斯坦布尔', hi: 22, lo: 15 }],                                      // 9.30 夜抵伊斯坦布尔（仅接机）
+  [{ c: '阿拉木图', hi: 18, lo: 8 }, { c: '伊斯坦布尔', hi: 22, lo: 15 }],   // 9.30 上午阿拉木图·夜抵伊斯坦布尔
   [{ c: '伊斯坦布尔', hi: 22, lo: 15 }],                                      // 10.1 伊斯坦布尔老城
   [{ c: '伊斯坦布尔', hi: 22, lo: 15 }, { c: '卡帕多奇亚', hi: 22, lo: 8 }],     // 10.2 伊斯坦布尔(老皇宫)→卡帕（夜抵）
   [{ c: '卡帕多奇亚', hi: 22, lo: 8 }],                                       // 10.3 卡帕多奇亚
@@ -1400,6 +1406,8 @@ function plainText(html) {
 function hasIntro(poi) {
   if (poi.noIntro) return false;
   if (poi.cat === 'transport' || poi.cat === 'pack') return false;
+  if (poi.xhs) return true;          // 有小红书链接的地点同样可点击展开
+  if (poi.recs && poi.recs.length) return true;  // 多个小红书推荐合并在一处
   return !!CTRIP_INTROS[poi.name];
 }
 
@@ -1412,6 +1420,7 @@ function poiDetailHtml(dayIdx, poiIdx) {
   const hours = (page && page.hours) || ef.hours;
   const ticket = (page && page.ticket) || ef.ticket;
   const url = page ? page.url : ctripSearchUrl(poi.name, poi);
+  const xhsUrl = poi.xhs || '';
 
   const quick = [];
   if (hours) quick.push(`<div class="quick-row"><span class="q-icon">🕐</span><span><b>开放/营业：</b>${hours}</span></div>`);
@@ -1421,15 +1430,19 @@ function poiDetailHtml(dayIdx, poiIdx) {
     + (ctrip && plainText(ctrip).length > 130 ? '…' : '');
 
   return `
+    <button type="button" class="poi-detail-close" onclick="collapsePoi(${dayIdx}, ${poiIdx})" title="收起" aria-label="收起">✕</button>
     <div class="poi-detail-inner">
-      <img class="poi-detail-img" src="${imgUrl(poi)}" alt="${poi.name}" onclick="openPoiModal(${dayIdx}, ${poiIdx})">
       <div class="poi-detail-text">
         ${quick.length ? `<div class="popup-quick">${quick.join('')}</div>` : ''}
         <div class="poi-detail-desc">${snippet || '暂无简介'}</div>
       </div>
     </div>
-    <button type="button" class="ctrip-expand" onclick="openPoiModal(${dayIdx}, ${poiIdx})">📖 展开携程${poi.hotel ? '酒店' : '景点'}页 · ${poi.hotel ? '房价 / 设施 / 预订' : '相册 / 门票 / 预订'}</button>
-    <a class="ctrip-link" href="${url}" target="_blank" rel="noopener">${page ? '📍 打开携程景点页' : ctripBtnLabel(poi)}</a>`;
+    ${poi.recs && poi.recs.length
+      ? poi.recs.map((r, ri) => `<a class="ctrip-link xhs-link" href="${r.xhs.replace(/&/g,'&amp;')}" target="_blank" rel="noopener" style="margin-top:${ri ? 8 : 0}">📕 打开小红书 · ${r.name}</a>`).join('')
+      : (xhsUrl
+          ? `<a class="ctrip-link xhs-link" href="${xhsUrl.replace(/&/g,'&amp;')}" target="_blank" rel="noopener">📕 打开小红书 · ${poi.name}</a>`
+          : `<button type="button" class="ctrip-expand" onclick="openPoiModal(${dayIdx}, ${poiIdx})">📖 展开携程${poi.hotel ? '酒店' : '景点'}页 · ${poi.hotel ? '房价 / 设施 / 预订' : '相册 / 门票 / 预订'}</button>
+             <a class="ctrip-link" href="${url}" target="_blank" rel="noopener">${page ? '📍 打开携程景点页' : ctripBtnLabel(poi)}</a>`)}`;
 }
 
 function renderTimeline(dayIdx) {
@@ -1455,7 +1468,7 @@ function renderTimeline(dayIdx) {
         <div class="empty-title">当日行程待规划</div>
         <div class="empty-desc">尚未安排具体行程，可自由探索或后续补充计划。</div>
       </div>
-      <div class="poi-card cat-stay" style="cursor:default">
+      <div class="poi-card cat-stay expanded" style="cursor:default">
         <div class="poi-top"><span class="poi-time">全天</span><span class="poi-tag">其他支出</span></div>
         <div class="poi-name">自由消费 · 待记录</div>
         <div class="poi-desc">弹性开销按交通、吃饭、购物分类记录，计入本日汇总。</div>
@@ -1482,28 +1495,30 @@ function renderTimeline(dayIdx) {
       <div class="poi-desc">${poi.desc}</div>
       <div class="poi-meta"><span>${poi.meta}</span></div>
       ${acts.length ? `<div class="poi-actions">${acts.join('')}</div>` : ''}
-      ${showIntro ? `<div class="poi-detail">${poiDetailHtml(dayIdx, i)}</div>
-      <div class="poi-hint">👆 点击查看景点介绍 · 门票 / 营业时间</div>` : ''}
-      ${day.noCost ? '' : `<div class="poi-cost">${costRowsHtml(dayIdx, i)}</div>`}`;
-    // 点击卡片：第一次展开内嵌详情卡，再次点击展开携程完整页面
-    // 交通/行李等功能性环节（no-intro）不绑定展开交互
-    if (showIntro) {
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('.poi-cost') || e.target.closest('.poi-act') || e.target.closest('.poi-detail')) return;
-        if (card.classList.contains('expanded')) {
+      ${showIntro ? `<div class="poi-detail">${poiDetailHtml(dayIdx, i)}</div>` : ''}
+      ${day.noCost ? '' : `<div class="poi-cost">${costRowsHtml(dayIdx, i)}</div>`}
+      ${(showIntro || !day.noCost) ? `<div class="poi-hint" data-collapsed="${showIntro ? '👆 点击展开景点介绍 · 费用记录' : '👆 点击展开费用记录'}">${showIntro ? '👆 点击展开景点介绍 · 费用记录' : '👆 点击展开费用记录'}</div>` : ''}`;
+    // 点击卡片：首展开内嵌详情 + 费用记录板块；再次点击（有介绍）弹携程完整页面，或无介绍环节收起费用
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.poi-cost') || e.target.closest('.poi-act') || e.target.closest('.poi-detail')) return;
+      if (card.classList.contains('expanded')) {
+        if (showIntro) {
           openPoiModal(dayIdx, i);
-        } else {
-          container.querySelectorAll('.poi-card.expanded').forEach(c => {
-            c.classList.remove('expanded');
-            const h = c.querySelector('.poi-hint');
-            if (h) h.textContent = '👆 点击查看景点介绍 · 门票 / 营业时间';
-          });
-          card.classList.add('expanded');
-          const h = card.querySelector('.poi-hint');
-          if (h) h.textContent = '👆 再次点击 · 展开携程完整页面';
+        } else if (!day.noCost) {
+          card.classList.remove('expanded');   // 无介绍环节：再次点击收起费用板块
         }
-      });
-    }
+      } else {
+        // 收起其他已展开的卡片（保持一次只展开一个）
+        container.querySelectorAll('.poi-card.expanded').forEach(c => {
+          c.classList.remove('expanded');
+          const h = c.querySelector('.poi-hint');
+          if (h) h.textContent = h.dataset.collapsed || '👆 点击展开景点介绍 · 费用记录';
+        });
+        card.classList.add('expanded');
+        const h = card.querySelector('.poi-hint');
+        if (h) h.textContent = showIntro ? '👆 再次点击 · 展开携程完整页面' : '👆 再次点击 · 收起费用记录';
+      }
+    });
     container.appendChild(card);
   });
 }
@@ -1595,6 +1610,16 @@ function openPoiModal(dayIdx, poiIdx) {
   const hours = (page && page.hours) || ef.hours;
   const ticket = (page && page.ticket) || ef.ticket;
   const ctripUrl = page ? page.url : ctripSearchUrl(poi.name, poi);
+  const xhsUrl = poi.xhs || '';
+  const recs = (poi.recs && poi.recs.length) ? poi.recs : (xhsUrl ? [{ name: poi.name, xhs: xhsUrl }] : []);
+  let primaryLinkHtml, srcNote;
+  if (recs.length) {
+    primaryLinkHtml = recs.map((r, ri) => `<a class="ctrip-link xhs-link" href="${r.xhs.replace(/&/g,'&amp;')}" target="_blank" rel="noopener" style="margin-top:${ri ? 8 : 0}">📕 打开小红书 · ${r.name}</a>`).join('');
+    srcNote = '信息来源：小红书笔记推荐（点上方按钮打开查看）';
+  } else {
+    primaryLinkHtml = `<a class="ctrip-link" href="${ctripUrl}" target="_blank" rel="noopener">${page ? '📍 打开携程景点页 · 门票预订 / 更多相册' : ctripBtnLabel(poi)}</a>`;
+    srcNote = page ? '信息来源：携程攻略景点页（you.ctrip.com），价格与时间以页面实时信息为准' : (poi.hotel ? '信息来源：携程酒店频道（hotels.ctrip.com），房价与房态以页面实时信息为准' : '该地点暂无携程景点专页，已提供携程站内搜索链接');
+  }
   const day = days[dayIdx];
 
   const chips = [];
@@ -1635,9 +1660,9 @@ function openPoiModal(dayIdx, poiIdx) {
         ${infoHtml}
         ${albumHtml}
         ${body}
-        <a class="ctrip-link" href="${ctripUrl}" target="_blank" rel="noopener">${page ? '📍 打开携程景点页 · 门票预订 / 更多相册' : ctripBtnLabel(poi)}</a>
+        ${primaryLinkHtml}
         ${page && page.murl ? `<a class="ctrip-link ctrip-link-sec" href="${page.murl}" target="_blank" rel="noopener">📱 携程移动端景点页</a>` : ''}
-        <div class="ctrip-src-note">${page ? '信息来源：携程攻略景点页（you.ctrip.com），价格与时间以页面实时信息为准' : (poi.hotel ? '信息来源：携程酒店频道（hotels.ctrip.com），房价与房态以页面实时信息为准' : '该地点暂无携程景点专页，已提供携程站内搜索链接')}</div>
+        <div class="ctrip-src-note">${srcNote}</div>
       </div>
     </div>`;
   modal.classList.add('show');
@@ -1649,6 +1674,17 @@ function closePoiModal() {
   const modal = document.getElementById('poiModal');
   if (modal) modal.classList.remove('show');
   document.body.style.overflow = '';
+}
+
+// 收起内嵌展开的景点详情面板（取消 expanded）
+function collapsePoi(dayIdx, poiIdx) {
+  const sec = document.getElementById('timeline-' + dayIdx);
+  if (!sec) return;
+  const card = sec.querySelector('.poi-card[data-idx="' + poiIdx + '"]');
+  if (!card) return;
+  card.classList.remove('expanded');
+  const h = card.querySelector('.poi-hint');
+  if (h) h.textContent = h.dataset.collapsed || '👆 点击展开景点介绍 · 费用记录';
 }
 
 document.addEventListener('keydown', (e) => {
