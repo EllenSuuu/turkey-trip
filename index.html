@@ -546,6 +546,13 @@
   .ctrip-link:hover { opacity:0.9; transform:translateY(-1px); }
   .ctrip-link.xhs-link { background:linear-gradient(135deg, #ff2e4d, #ff5c78); }
   .ctrip-link.xhs-link:hover { background:linear-gradient(135deg, #e01f3c, #ff2e4d); }
+  .ctrip-link.gmaps-link { background:linear-gradient(135deg, #188038, #34a853); }
+  .ctrip-link.gmaps-link:hover { background:linear-gradient(135deg, #0f6b2e, #188038); }
+  .rec-block { margin-top:10px; }
+  .rec-name { font-weight:600; color:var(--c-text); margin:2px 0 7px; font-size:13.5px; }
+  .rec-info { display:flex; flex-wrap:wrap; gap:6px; margin-top:9px; padding-top:9px; border-top:1px dashed var(--c-border); }
+  .ri-item { background:rgba(24,128,56,.10); color:#0f6b2e; font-size:12px; padding:3px 9px; border-radius:999px; line-height:1.5; }
+  .ri-item b { color:#0a5a26; }
 
   /* Quick info rows in popup (ticket / hours) */
   .popup-quick { display:flex; flex-direction:column; gap:6px; margin:8px 0 2px; }
@@ -785,7 +792,7 @@ const days = [
     center: [41.1, 28.9], zoom: 7,
     pois: [
       { time:'10:00', name:'升天大教堂 & 绿色市场（可选）', desc:'阿拉木图潘菲洛夫28勇士公园内的升天大教堂（Zenkov Cathedral），世界第二高的全木结构东正教教堂，1907年建成、未用一根铁钉，糖果色外墙配鎏金洋葱顶；旁边绿色市场（Zelyony Bazaar）可一并闲逛，购买干果与奶制品。', cat:'culture', lat:43.0613, lng:76.9570, meta:'🆓 免费 · 约90分钟', wiki:'Zenkov Cathedral' },
-      { time:'12:00', name:'午餐 · Darejani 餐厅（推荐）', desc:'阿拉木图本地人气餐厅，主打中亚风味与高加索/格鲁吉亚菜系，环境温馨，适合上午行程后的午餐小憩。点开可查看小红书笔记推荐。', cat:'food', lat:43.0567, lng:76.9280, meta:'🍽️ 小红书推荐 · 点击查看', xhs:'https://www.xiaohongshu.com/explore/69ad43e9000000001b01ee24?app_platform=ios&app_version=9.46&share_from_user_hidden=true&xsec_source=app_share&type=normal&xsec_token=CBPfbyA0hUdiDBeluqWvJLxW36BePIE2SFjrwvah2m2b8=&author_share=1&xhsshare=WeixinSession&shareRedId=Nz40MDc6SEs5OzsyQjw1OkdISj46N0o8&apptime=1789666420&share_id=865c95d9bba54a67a8d053c8eb093e52&track_code=486YzvXHuNe&wechatWid=72a1cd3480a295eed58154628bd59118&wechatOrigin=menu' },
+      { time:'12:00', name:'午餐 · Darejani 餐厅（推荐）', desc:'阿拉木图本地人气餐厅，主打中亚风味与高加索/格鲁吉亚菜系，环境温馨，适合上午行程后的午餐小憩。点开可查看小红书笔记推荐。', cat:'food', lat:43.0567, lng:76.9280, meta:'🍽️ 小红书推荐 · 点击查看', xhs:'https://www.xiaohongshu.com/explore/69ad43e9000000001b01ee24?app_platform=ios&app_version=9.46&share_from_user_hidden=true&xsec_source=app_share&type=normal&xsec_token=CBPfbyA0hUdiDBeluqWvJLxW36BePIE2SFjrwvah2m2b8=&author_share=1&xhsshare=WeixinSession&shareRedId=Nz40MDc6SEs5OzsyQjw1OkdISj46N0o8&apptime=1789666420&share_id=865c95d9bba54a67a8d053c8eb093e52&track_code=486YzvXHuNe&wechatWid=72a1cd3480a295eed58154628bd59118&wechatOrigin=menu', gmaps:'https://www.google.com/maps/search/?api=1&query=Darejani+Almaty', rating:'4.5', price:'人均 KZT 5,000–20,000', hours:'每日 9:00–24:00（周五六至次日1:00）' },
       { time:'16:20', name:'航班 KC911 阿拉木图T2 → 伊斯坦布尔', desc:'阿斯塔纳航空执飞，飞行约 5.5 小时，跨越里海抵达欧亚大陆交汇之城。', cat:'transport', lat:41.2753, lng:28.7519, meta:'🛫 阿斯塔纳航空 · 约5.5h · 16:20-20:25', wiki:'Air Astana' },
       { time:'20:25', name:'抵达伊斯坦布尔机场 (IST)', desc:'落地土耳其最大机场，办理入境与取行李，接机专车已在等候。', cat:'transport', lat:41.2753, lng:28.7519, meta:'🛬 当地时间20:25', wiki:'Istanbul Airport' },
       { time:'21:30', name:'专车接机 · 入住希尔顿欢朋酒店', desc:'约 40 分钟车程抵达宰廷布尔努区，入住 Hampton by Hilton Istanbul Zeytinburnu。酒店位于欧洲一侧，紧邻地铁 M1A 线与 Marmara Forum 购物中心，前往老城景点与机场都很方便。连住 2 晚（9.30、10.1）。', cat:'stay', hotel:true, hotelName:'Hampton by Hilton Istanbul Zeytinburnu', lat:41.0055, lng:28.9010, meta:'🏨 希尔顿欢朋 Zeytinburnu · 连住2晚', wiki:'Istanbul' }
@@ -803,8 +810,8 @@ const days = [
       { time:'13:00', name:'老城午餐（自理）', desc:'在苏丹艾哈迈德区找一家传统餐厅，品尝土耳其烤肉、Menemen 或水平早餐，补充体力。', cat:'food', lat:41.0060, lng:28.9770, meta:'🍽️ 自理 · 人均约150元', wiki:'Turkish cuisine' },
       { time:'14:00', name:'蓝色清真寺（入内简单参观）', desc:'因内部蓝色瓷砖得名，六座宣礼塔是奥斯曼建筑巅峰。入内简单参观，欣赏伊兹尼克蓝砖与巨大中央圆顶，女性需包头巾、入内脱鞋。', cat:'culture', lat:41.0054, lng:28.9768, meta:'🆓 免费 · 约30分钟', wiki:'Sultan Ahmed Mosque' },
       { time:'14:30', name:'蓝色清真寺附近餐厅推荐', desc:'蓝色清真寺周边两家高人气露台餐厅，点开分别查看小红书笔记推荐与点评。', cat:'food', lat:41.0054, lng:28.9768, meta:'🍽️ 小红书推荐 · 2家 · 点击查看', recs:[
-        { name:'ALPEK TERAS RESTAURANT', xhs:'https://www.xiaohongshu.com/explore/6aabe58300000000250356b3?app_platform=ios&app_version=9.46&share_from_user_hidden=true&xsec_source=app_share&type=normal&xsec_token=CB2ly-j9qTDQIf0sl3yKyXZTPlIEHedUnh4Y118A3LUUo=&author_share=1&xhsshare=WeixinSession&shareRedId=Nz40MDc6SEs5OzsyQjw1OkdISj46N0o8&apptime=1789666740&share_id=411656b3b4164cbcbad59dcfb18ee607&track_code=67QOYlIcgQB&wechatWid=72a1cd3480a295eed58154628bd59118&wechatOrigin=menu' },
-        { name:'By Kinyas terrace restaurant', xhs:'https://www.xiaohongshu.com/explore/6a2fda39000000001101c967?app_platform=ios&app_version=9.46&share_from_user_hidden=true&xsec_source=app_share&type=normal&xsec_token=CBnNfne6gDnZAv4q1UmeEqTLFh22H-FPRrqwiwqZTFpyI=&author_share=1&xhsshare=WeixinSession&shareRedId=Nz40MDc6SEs5OzsyQjw1OkdISj46N0o8&apptime=1789666768&share_id=de0b2194488b4251ace8817d33b5a667&track_code=gDtu7MdySJ&wechatWid=72a1cd3480a295eed58154628bd59118&wechatOrigin=menu' }
+        { name:'ALPEK TERAS RESTAURANT', xhs:'https://www.xiaohongshu.com/explore/6aabe58300000000250356b3?app_platform=ios&app_version=9.46&share_from_user_hidden=true&xsec_source=app_share&type=normal&xsec_token=CB2ly-j9qTDQIf0sl3yKyXZTPlIEHedUnh4Y118A3LUUo=&author_share=1&xhsshare=WeixinSession&shareRedId=Nz40MDc6SEs5OzsyQjw1OkdISj46N0o8&apptime=1789666740&share_id=411656b3b4164cbcbad59dcfb18ee607&track_code=67QOYlIcgQB&wechatWid=72a1cd3480a295eed58154628bd59118&wechatOrigin=menu', gmaps:'https://www.google.com/maps/search/?api=1&query=ALPEK+TERAS+RESTAURANT+Istanbul', rating:'4.5', price:'人均 TRY 460–1,200', hours:'每日 9:00–24:00' },
+        { name:'By Kinyas terrace restaurant', xhs:'https://www.xiaohongshu.com/explore/6a2fda39000000001101c967?app_platform=ios&app_version=9.46&share_from_user_hidden=true&xsec_source=app_share&type=normal&xsec_token=CBnNfne6gDnZAv4q1UmeEqTLFh22H-FPRrqwiwqZTFpyI=&author_share=1&xhsshare=WeixinSession&shareRedId=Nz40MDc6SEs5OzsyQjw1OkdISj46N0o8&apptime=1789666768&share_id=de0b2194488b4251ace8817d33b5a667&track_code=gDtu7MdySJ&wechatWid=72a1cd3480a295eed58154628bd59118&wechatOrigin=menu', gmaps:'https://www.google.com/maps/search/?api=1&query=By+Kinyas+terrace+restaurant+Istanbul', rating:'4.7', price:'人均 TRY 500–1,000', hours:'每日 9:00–次日1:00' }
       ] },
       { time:'14:45', name:'埃及方尖碑', desc:'原竖立于埃及卡尔纳克神庙，公元390年运至君士坦丁堡。碑身四面刻象形文字，底座浮雕描绘狄奥多西一世的赛马车队场景，矗立于苏丹艾哈迈德广场。', cat:'culture', lat:41.0059, lng:28.9754, meta:'🆓 免费 · 约20分钟', wiki:'Obelisk of Theodosius' },
       { time:'15:30', name:'博斯普鲁斯游船', desc:'搭乘游船穿越欧亚分界线，纵览两岸宫殿、清真寺与别墅，在离开老城前享受最惬意的水上告别仪式。', cat:'nature', lat:41.0210, lng:29.0050, meta:'🎫 含船票 · 约90分钟', wiki:'Bosphorus' },
@@ -1438,9 +1445,14 @@ function poiDetailHtml(dayIdx, poiIdx) {
       </div>
     </div>
     ${poi.recs && poi.recs.length
-      ? poi.recs.map((r, ri) => `<a class="ctrip-link xhs-link" href="${r.xhs.replace(/&/g,'&amp;')}" target="_blank" rel="noopener" style="margin-top:${ri ? 8 : 0}">📕 打开小红书 · ${r.name}</a>`).join('')
+      ? poi.recs.map((r, ri) => `<div class="rec-block" style="margin-top:${ri ? 12 : 0}">
+        <div class="rec-name">🍽️ ${r.name}</div>
+        <a class="ctrip-link xhs-link" href="${r.xhs.replace(/&/g,'&amp;')}" target="_blank" rel="noopener">📕 打开小红书 · 查看笔记</a>
+        ${r.gmaps ? `<a class="ctrip-link gmaps-link" href="${r.gmaps.replace(/&/g,'&amp;')}" target="_blank" rel="noopener" style="margin-top:8px">📍 Google 地图 · 导航/街景</a>` : ''}
+        ${recInfoHtml(r)}
+      </div>`).join('')
       : (xhsUrl
-          ? `<a class="ctrip-link xhs-link" href="${xhsUrl.replace(/&/g,'&amp;')}" target="_blank" rel="noopener">📕 打开小红书 · ${poi.name}</a>`
+          ? `<a class="ctrip-link xhs-link" href="${xhsUrl.replace(/&/g,'&amp;')}" target="_blank" rel="noopener">📕 打开小红书 · ${poi.name}</a>${poi.gmaps ? `<a class="ctrip-link gmaps-link" href="${poi.gmaps.replace(/&/g,'&amp;')}" target="_blank" rel="noopener" style="margin-top:8px">📍 Google 地图 · ${poi.name}</a>` : ''}${recInfoHtml(poi)}`
           : `<button type="button" class="ctrip-expand" onclick="openPoiModal(${dayIdx}, ${poiIdx})">📖 展开携程${poi.hotel ? '酒店' : '景点'}页 · ${poi.hotel ? '房价 / 设施 / 预订' : '相册 / 门票 / 预订'}</button>
              <a class="ctrip-link" href="${url}" target="_blank" rel="noopener">${page ? '📍 打开携程景点页' : ctripBtnLabel(poi)}</a>`)}`;
 }
@@ -1598,6 +1610,17 @@ function ctripSearchUrl(name, poi) {
 function ctripBtnLabel(poi) {
   return (poi && poi.hotel) ? '🏨 在携程查看酒店 · 房价 / 预订' : '📍 搜索携程 · 查看价格';
 }
+// 餐厅基础信息条（评分 / 人均 / 营业时间），数据提取自 Google 地图商家信息
+function recInfoHtml(r) {
+  if (!r) return '';
+  const stars = r.rating || '';
+  if (!stars && !r.price && !r.hours) return '';
+  const items = [];
+  if (stars) items.push(`<span class="ri-item">⭐ <b>${stars}</b></span>`);
+  if (r.price) items.push(`<span class="ri-item">💰 ${r.price}</span>`);
+  if (r.hours) items.push(`<span class="ri-item">🕐 ${r.hours}</span>`);
+  return `<div class="rec-info" title="数据来源：Google 地图商家信息">${items.join('')}</div>`;
+}
 
 // ===== POI 全屏详情面板（仿携程景点页） =====
 function openPoiModal(dayIdx, poiIdx) {
@@ -1611,10 +1634,15 @@ function openPoiModal(dayIdx, poiIdx) {
   const ticket = (page && page.ticket) || ef.ticket;
   const ctripUrl = page ? page.url : ctripSearchUrl(poi.name, poi);
   const xhsUrl = poi.xhs || '';
-  const recs = (poi.recs && poi.recs.length) ? poi.recs : (xhsUrl ? [{ name: poi.name, xhs: xhsUrl }] : []);
+  const recs = (poi.recs && poi.recs.length) ? poi.recs : (xhsUrl ? [{ name: poi.name, xhs: xhsUrl, gmaps: poi.gmaps }] : []);
   let primaryLinkHtml, srcNote;
   if (recs.length) {
-    primaryLinkHtml = recs.map((r, ri) => `<a class="ctrip-link xhs-link" href="${r.xhs.replace(/&/g,'&amp;')}" target="_blank" rel="noopener" style="margin-top:${ri ? 8 : 0}">📕 打开小红书 · ${r.name}</a>`).join('');
+    primaryLinkHtml = recs.map((r, ri) => `<div class="rec-block" style="margin-top:${ri ? 12 : 0}">
+        <div class="rec-name">🍽️ ${r.name}</div>
+        <a class="ctrip-link xhs-link" href="${r.xhs.replace(/&/g,'&amp;')}" target="_blank" rel="noopener">📕 打开小红书 · 查看笔记</a>
+        ${r.gmaps ? `<a class="ctrip-link gmaps-link" href="${r.gmaps.replace(/&/g,'&amp;')}" target="_blank" rel="noopener" style="margin-top:8px">📍 Google 地图 · 导航/街景</a>` : ''}
+        ${recInfoHtml(r)}
+      </div>`).join('');
     srcNote = '信息来源：小红书笔记推荐（点上方按钮打开查看）';
   } else {
     primaryLinkHtml = `<a class="ctrip-link" href="${ctripUrl}" target="_blank" rel="noopener">${page ? '📍 打开携程景点页 · 门票预订 / 更多相册' : ctripBtnLabel(poi)}</a>`;
